@@ -4,7 +4,7 @@ from model_loader import ModelLoader
 
 
 def make_celery(app_name=__name__):
-    backend = broker = "redis://llama2_redis_cache:6379/0"
+    backend = broker = "redis://llama2_redis_1:6379/0"
     return Celery(app_name, backend=backend, broker=broker)
 
 
