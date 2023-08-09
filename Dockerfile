@@ -5,10 +5,6 @@ RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y python3.9 python3.9-dev python3.9-distutils python3-pip
 
-# install pip
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-RUN python3.9 get-pip.py
-
 WORKDIR /app
 ADD . /app
 
