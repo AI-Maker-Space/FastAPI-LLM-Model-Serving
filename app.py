@@ -25,7 +25,7 @@ async def generate_text(prompt: Prompt):
     return {"task_id": task.id}
 
 
-@app.get("/generateTextTask/{task_id}")
+@app.get("/task/{task_id}")
 async def get_generate_text(task_id: str):
     task = AsyncResult(task_id)
     if task.ready():
