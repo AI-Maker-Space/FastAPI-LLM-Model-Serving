@@ -16,7 +16,7 @@ class Prompt(BaseModel):
 
 @app.post("/generateText")
 async def generate_text(prompt: Prompt) -> Any:
-    task = generate_text_task.delay(prompt)
+    task = generate_text_task.delay(prompt.prompt)
     return {"task_id": task.id}
 
 
