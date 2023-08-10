@@ -11,7 +11,7 @@ def make_celery(app_name=__name__):
 celery = make_celery()
 
 model_loader = None
-model_path = "TheBloke/Llama-2-7b-chat-fp16"
+model_path = "meta-llama/Llama-2-7b-chat-hf"
 
 
 @signals.worker_process_init.connect
