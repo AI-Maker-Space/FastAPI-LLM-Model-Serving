@@ -11,12 +11,7 @@ app = FastAPI()
 
 
 class Prompt(BaseModel):
-    prompt: str = Field(
-        default=None,
-        title="Prompt",
-        description="LLM Prompt",
-        max_length=1000,  # arbitrary, could be used to limit the size of the prompt based on the context window
-    )
+    prompt: str
 
 
 @app.post("/generateText")
