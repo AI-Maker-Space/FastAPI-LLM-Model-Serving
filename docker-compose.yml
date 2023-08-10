@@ -9,6 +9,13 @@ services:
       - 8000:80
     depends_on:
       - redis
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   worker:
     build: .
     command: celery -A celery_worker worker --loglevel=info
@@ -16,14 +23,14 @@ services:
       - .:/app
     depends_on:
       - redis
-  redis:
-    image: "redis:alpine"
-    ports:
-      - 6379:6379
-deploy:
+    deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  redis:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
