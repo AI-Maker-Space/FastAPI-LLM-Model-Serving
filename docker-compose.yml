@@ -18,7 +18,7 @@ services:
               capabilities: [gpu]
   worker:
     build: .
-    command: celery -A celery_worker worker --loglevel=info
+    command: celery -A celery_worker worker -P solo --loglevel=info
     volumes:
       - .:/app
     depends_on:
