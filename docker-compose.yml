@@ -20,3 +20,10 @@ services:
     image: "redis:alpine"
     ports:
       - 6379:6379
+deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
