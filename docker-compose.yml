@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    build: ./fast_api
+    build: ./docker/fast_api
     command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
     volumes:
       - .:/app
@@ -10,7 +10,7 @@ services:
     depends_on:
       - redis
   worker:
-    build: .
+    build: ./docker/fast_api
     command: celery -A celery_worker worker -P solo --loglevel=info
     volumes:
       - .:/app
@@ -28,11 +28,11 @@ services:
     ports:
       - 6379:6379
   chainlit: 
-    build: ./chainlit_app
+    build: ./docker/chainlit_app
     command: ["chainlit", "chainlit_app.py"]
     volumes:
       - .:/app
     ports:
       - 6379:6379
     depends_on:
-      - web
+      - redis
