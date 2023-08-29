@@ -29,10 +29,10 @@ services:
       - 6379:6379
   chainlit: 
     build: ./docker/chainlit_app
-    command: ["chainlit", "chainlit_app.py"]
+    command: ["chainlit", "run", "app.py", "--port", "7860"]
     volumes:
       - .:/app
     ports:
-      - 7890:7890
+      - 7860:7860
     depends_on:
       - redis
