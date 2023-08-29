@@ -4,7 +4,7 @@ services:
     build: ./docker/fast_api
     command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
     volumes:
-      - .:/app
+      - .:/docker/fast_api
     ports:
       - 8000:80
     depends_on:
@@ -13,7 +13,7 @@ services:
     build: ./docker/fast_api
     command: celery -A celery_worker worker -P solo --loglevel=info
     volumes:
-      - .:/app
+      - .:/docker/fast_api
     depends_on:
       - redis
     deploy:
@@ -31,7 +31,7 @@ services:
     build: ./docker/chainlit_app
     command: ["chainlit", "run", "app.py", "--port", "7860"]
     volumes:
-      - .:/app
+      - .:/docker/chainlit_app
     ports:
       - 7860:7860
     depends_on:
