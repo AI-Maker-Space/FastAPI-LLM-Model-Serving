@@ -1,19 +1,26 @@
 version: '3'
 services:
   web:
-    build: ./docker/fast_api
+    build: .
     command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
     volumes:
-      - .:/docker/fast_api
+      - .:/app
     ports:
       - 8000:80
     depends_on:
       - redis
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   worker:
-    build: ./docker/fast_api
+    build: .
     command: celery -A celery_worker worker -P solo --loglevel=info
     volumes:
-      - .:/docker/fast_api
+      - .:/app
     depends_on:
       - redis
     deploy:
@@ -27,12 +34,3 @@ services:
     image: "redis:alpine"
     ports:
       - 6379:6379
-  chainlit: 
-    build: ./docker/chainlit_app
-    command: ["chainlit", "run", "app.py", "--port", "7860"]
-    volumes:
-      - .:/docker/chainlit_app
-    ports:
-      - 7860:7860
-    depends_on:
-      - redis
